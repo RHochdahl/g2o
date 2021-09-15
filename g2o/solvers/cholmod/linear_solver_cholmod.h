@@ -186,7 +186,7 @@ class LinearSolverCholmod : public LinearSolverCCS<MatrixType>
 
       // invert the permutation
       int* p = (int*)_cholmodFactor->Perm;
-      VectorXI pinv; pinv.resize(_cholmodSparse->ncol);
+      VectorXI pinv; pinv.conservativeResize(_cholmodSparse->ncol);
       for (size_t i = 0; i < _cholmodSparse->ncol; ++i)
         pinv(p[i]) = i;
 
@@ -227,7 +227,7 @@ class LinearSolverCholmod : public LinearSolverCCS<MatrixType>
 
       // invert the permutation
       int* p = (int*)_cholmodFactor->Perm;
-      VectorXI pinv; pinv.resize(_cholmodSparse->ncol);
+      VectorXI pinv; pinv.conservativeResize(_cholmodSparse->ncol);
       for (size_t i = 0; i < _cholmodSparse->ncol; ++i)
         pinv(p[i]) = i;
 
@@ -282,9 +282,9 @@ class LinearSolverCholmod : public LinearSolverCCS<MatrixType>
 
         // get the ordering for the block matrix
         if (_blockPermutation.size() == 0)
-          _blockPermutation.resize(_matrixStructure.n);
+          _blockPermutation.conservativeResize(_matrixStructure.n);
         if (_blockPermutation.size() < _matrixStructure.n) // double space if resizing
-          _blockPermutation.resize(2*_matrixStructure.n);
+          _blockPermutation.conservativeResize(2*_matrixStructure.n);
  
         // prepare AMD call via CHOLMOD
         cholmod_sparse auxCholmodSparse;
@@ -308,9 +308,9 @@ class LinearSolverCholmod : public LinearSolverCCS<MatrixType>
 
         // blow up the permutation to the scalar matrix
         if (_scalarPermutation.size() == 0)
-          _scalarPermutation.resize(_cholmodSparse->ncol);
+          _scalarPermutation.conservativeResize(_cholmodSparse->ncol);
         if (_scalarPermutation.size() < (int)_cholmodSparse->ncol)
-          _scalarPermutation.resize(2*_cholmodSparse->ncol);
+          _scalarPermutation.conservativeResize(2*_cholmodSparse->ncol);
         size_t scalarIdx = 0;
         for (int i = 0; i < _matrixStructure.n; ++i) {
           const int& p = _blockPermutation(i);
