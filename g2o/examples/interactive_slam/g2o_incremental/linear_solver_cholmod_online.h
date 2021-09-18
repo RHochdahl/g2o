@@ -178,7 +178,7 @@ class LinearSolverCholmodOnline : public LinearSolver<MatrixType>, public Linear
 
       // get the ordering for the block matrix
       if (_blockPermutation.size() < _matrixStructure.n) // double space if resizing
-        _blockPermutation.resize(2*_matrixStructure.n);
+        _blockPermutation.conservativeResize(2*_matrixStructure.n);
 
       int amdStatus = camd_order(_matrixStructure.n, _matrixStructure.Ap, _matrixStructure.Aii, _blockPermutation.data(), NULL, NULL, cmember->data());
       if (amdStatus != CAMD_OK) {
@@ -187,9 +187,9 @@ class LinearSolverCholmodOnline : public LinearSolver<MatrixType>, public Linear
 
       // blow up the permutation to the scalar matrix and extend to include the additional blocks
       if (_scalarPermutation.size() == 0)
-        _scalarPermutation.resize(_cholmodSparse->ncol);
+        _scalarPermutation.conservativeResize(_cholmodSparse->ncol);
       if (_scalarPermutation.size() < (int)_cholmodSparse->ncol)
-        _scalarPermutation.resize(2*_cholmodSparse->ncol);
+        _scalarPermutation.conservativeResize(2*_cholmodSparse->ncol);
       size_t scalarIdx = 0;
       for (int i = 0; i < _matrixStructure.n; ++i) {
         const int& p = _blockPermutation(i);

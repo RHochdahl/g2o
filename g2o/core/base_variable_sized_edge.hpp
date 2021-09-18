@@ -78,6 +78,7 @@ void BaseVariableSizedEdge<D, E>::linearizeOplus() {
     assert(_dimension >= 0);
     assert(_jacobianOplus[i].rows() == _dimension && _jacobianOplus[i].cols() == vi_dim &&
            "jacobian cache dimension does not match");
+    std::cerr << "_dimension:\t" << _dimension << std::endl;
     _jacobianOplus[i].resize(_dimension, vi_dim);
     // add small step along the unit vector in each dimension
     ceres::internal::FixedArray<number_t> add_vi(vi_dim);

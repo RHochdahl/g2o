@@ -597,6 +597,7 @@ namespace g2o {
 
   template <class MatrixType>
   int SparseBlockMatrix<MatrixType>::fillSparseBlockMatrixCCS(SparseBlockMatrixCCS<MatrixType>& blockCCS) const
+
   {
     blockCCS.blockCols().resize(blockCols().size());
     int numblocks = 0;

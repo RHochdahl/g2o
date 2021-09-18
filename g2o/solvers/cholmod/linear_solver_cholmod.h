@@ -149,9 +149,9 @@ class LinearSolverCholmod : public LinearSolverCCS<MatrixType> {
       A.fillBlockStructure(_matrixStructure);
 
       // get the ordering for the block matrix
-      if (_blockPermutation.size() == 0) _blockPermutation.resize(_matrixStructure.n);
+      if (_blockPermutation.size() == 0) _blockPermutation.conservativeResize(_matrixStructure.n);
       if (_blockPermutation.size() < _matrixStructure.n)  // double space if resizing
-        _blockPermutation.resize(2 * _matrixStructure.n);
+        _blockPermutation.conservativeResize(2 * _matrixStructure.n);
 
       // prepare AMD call via CHOLMOD
       cholmod_sparse auxCholmodSparse;
