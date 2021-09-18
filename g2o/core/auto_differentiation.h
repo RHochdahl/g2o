@@ -31,9 +31,9 @@
 #include <cassert>
 #include <type_traits>
 
-// #ifndef G2O_USE_VENDORED_CERES
-//   #define G2O_USE_VENDORED_CERES
-// #endif
+#ifndef G2O_USE_VENDORED_CERES
+  #define G2O_USE_VENDORED_CERES
+#endif
 
 #ifdef G2O_USE_VENDORED_CERES
   #include "g2o/EXTERNAL/ceres/autodiff.h"
