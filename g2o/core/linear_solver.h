@@ -117,8 +117,8 @@ class LinearSolver {
     int n = A.cols();
     Eigen::MatrixBase<ScalarDerived>& scalarPermutation =
         const_cast<Eigen::MatrixBase<ScalarDerived>&>(scalar);
-    if (scalarPermutation.size() == 0) scalarPermutation.derived().resize(n);
-    if (scalarPermutation.size() < n) scalarPermutation.derived().resize(2 * n);
+    if (scalarPermutation.size() == 0) scalarPermutation.derived().conservativeResize(n);
+    if (scalarPermutation.size() < n) scalarPermutation.derived().conservativeResize(2 * n);
     size_t scalarIdx = 0;
     for (size_t i = 0; i < A.colBlockIndices().size(); ++i) {
       int base = A.colBaseOfBlock(p(i));
